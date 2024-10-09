@@ -1,4 +1,5 @@
 import random
+import math
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -20,7 +21,7 @@ class GameViewSet(viewsets.ViewSet):
     def new_game(self, request):
         try:
             word = random.choice(self.WORDS).lower()
-            max_incorrect_guesses = len(word) // 2
+            max_incorrect_guesses = math.ceil(len(word) / 2)
             
             game = Game.objects.create(
                 word=word,
